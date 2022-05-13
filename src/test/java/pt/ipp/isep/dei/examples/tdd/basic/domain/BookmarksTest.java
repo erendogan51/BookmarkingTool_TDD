@@ -2,8 +2,11 @@ package pt.ipp.isep.dei.examples.tdd.basic.domain;
 
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -17,22 +20,22 @@ class BookmarksTest {
         Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
         String url = "https://google.com";
 
-        //When
+        //when
         bookmarks.addURLtoBookmarks(url);
 
-        //Then
+        //then
         assertEquals(url,bookmarks.getBookmarkedURLs().get(0).getUrl().toString());
     }
 
     @Test
-    public void checkIfExceptionIsThrownWhenInvalidURLisEntered(){
+    public void checkIfExceptionIsThrownwhenInvalidURLisEntered(){
         //given
         Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
         String url = "google.com";
 
-        //Then
+        //then
         assertThrows(MalformedURLException.class, ()->{
-            //When
+            //when
             bookmarks.addURLtoBookmarks(url);
         });
     }
@@ -44,11 +47,11 @@ class BookmarksTest {
         String url = "https://google.com";
         String tag = "google";
 
-        //When
+        //when
         bookmarks.addURLtoBookmarks(url);
         bookmarks.addTagToExistingBookmark(tag, url);
 
-        //Then
+        //then
         assertEquals(tag, bookmarks.getBookmarkedURLs().get(0).getTag());
     }
 
@@ -59,11 +62,27 @@ class BookmarksTest {
         String url = "https://google.com";
         String tag = "google";
 
-        //When
+        //when
         bookmarks.addURLtoBookmarks(url, tag);
 
-        //Then
+        //then
         assertEquals(url,bookmarks.getBookmarkedURLs().get(0).getUrl().toString());
         assertEquals(tag,bookmarks.getBookmarkedURLs().get(0).getTag());
+    }
+
+    @Test
+    public void checkIfExistingBookmarksCanBeFoundByURL() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        String url = "https://google.com";
+
+
+        //when
+        bookmarks.addURLtoBookmarks(url);
+        List<Bookmark> bookmarkList = bookmarks.findBookmarkByURL(url);
+        
+        //then
+        assertEquals(url, bookmarkList.get(0).getUrl().toString());
+        
     }
 }
