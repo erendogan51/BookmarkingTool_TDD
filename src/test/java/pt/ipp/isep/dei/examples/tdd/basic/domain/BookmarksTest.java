@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 class BookmarksTest {
@@ -17,10 +18,24 @@ class BookmarksTest {
         //given
         String url = "https://google.com";
 
-        //then
+        //When
         bookmarks.addURLtoBookmarks(url);
 
         //Then
         assertEquals(url,bookmarks.getBookmarkedURLs().get(0).getUrl().toString());
+    }
+
+    @Test
+    public void checkIfExceptionIsThrownWhenInvalidURLisEntered(){
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+
+        //given
+        String url = "google.com";
+
+        //Then
+        assertThrows(MalformedURLException.class, ()->{
+            //When
+            bookmarks.addURLtoBookmarks(url);
+        });
     }
 }
