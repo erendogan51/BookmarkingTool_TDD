@@ -5,6 +5,7 @@ import lombok.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 
 @AllArgsConstructor
@@ -16,5 +17,19 @@ public class Bookmarks {
     public void addURLtoBookmarks(String urlAsString) throws MalformedURLException {
         Bookmark url = new Bookmark(new URL(urlAsString));
         this.bookmarkedURLs.add(url);
+    }
+
+    public void addURLtoBookmarks(String urlAsString, String tag) throws MalformedURLException {
+        Bookmark url = new Bookmark(new URL(urlAsString), tag);
+        this.bookmarkedURLs.add(url);
+    }
+
+    public void addTagToExistingBookmark(String tag, String url){
+        this.bookmarkedURLs
+                .stream()
+                .filter(u -> u.getUrl().toString().equals(url))
+                .collect(Collectors.toList())
+                .get(0)
+                .setTag(tag);
     }
 }

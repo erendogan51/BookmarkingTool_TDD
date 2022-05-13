@@ -38,4 +38,22 @@ class BookmarksTest {
             bookmarks.addURLtoBookmarks(url);
         });
     }
+
+    @Test
+    public void checkIfTagCanBeAddedToURL() throws MalformedURLException {
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+
+        //given
+        String url = "https://google.com";
+        String tag = "google";
+
+
+        //When
+        bookmarks.addURLtoBookmarks(url);
+        bookmarks.addTagToExistingBookmark(tag, url);
+
+        //Then
+        assertEquals(tag, bookmarks.getBookmarkedURLs().get(0).getTag());
+
+    }
 }
