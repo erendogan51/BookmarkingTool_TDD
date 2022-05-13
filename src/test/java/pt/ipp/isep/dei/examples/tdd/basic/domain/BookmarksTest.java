@@ -13,9 +13,8 @@ class BookmarksTest {
 
     @Test
     public void checkIfURLCanBeBookmarked() throws MalformedURLException {
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
-
         //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
         String url = "https://google.com";
 
         //When
@@ -27,9 +26,8 @@ class BookmarksTest {
 
     @Test
     public void checkIfExceptionIsThrownWhenInvalidURLisEntered(){
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
-
         //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
         String url = "google.com";
 
         //Then
@@ -40,13 +38,11 @@ class BookmarksTest {
     }
 
     @Test
-    public void checkIfTagCanBeAddedToURL() throws MalformedURLException {
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
-
+    public void checkIfTagCanBeAddedToExistingBookmarkedURL() throws MalformedURLException {
         //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
         String url = "https://google.com";
         String tag = "google";
-
 
         //When
         bookmarks.addURLtoBookmarks(url);
@@ -54,6 +50,20 @@ class BookmarksTest {
 
         //Then
         assertEquals(tag, bookmarks.getBookmarkedURLs().get(0).getTag());
+    }
 
+    @Test
+    public void checkIfURLWithTagCanBeAdded() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        String url = "https://google.com";
+        String tag = "google";
+
+        //When
+        bookmarks.addURLtoBookmarks(url, tag);
+
+        //Then
+        assertEquals(url,bookmarks.getBookmarkedURLs().get(0).getUrl().toString());
+        assertEquals(tag,bookmarks.getBookmarkedURLs().get(0).getTag());
     }
 }
