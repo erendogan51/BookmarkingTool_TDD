@@ -21,17 +21,17 @@ class BookmarksTest {
         bookmarks.addURLtoBookmarks(url);
 
         //then
-        assertEquals(url,bookmarks.getBookmarkedURLs().get(0).getUrl().toString());
+        assertEquals(url, bookmarks.getBookmarkedURLs().get(0).getUrl().toString());
     }
 
     @Test
-    public void checkIfExceptionIsThrownwhenInvalidURLisEntered(){
+    public void checkIfExceptionIsThrownwhenInvalidURLisEntered() {
         //given
         Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
         String url = "google.com";
 
         //then
-        assertThrows(MalformedURLException.class, ()->{
+        assertThrows(MalformedURLException.class, () -> {
             //when
             bookmarks.addURLtoBookmarks(url);
         });
@@ -63,8 +63,8 @@ class BookmarksTest {
         bookmarks.addURLtoBookmarks(url, tag);
 
         //then
-        assertEquals(url,bookmarks.getBookmarkedURLs().get(0).getUrl().toString());
-        assertEquals(tag,bookmarks.getBookmarkedURLs().get(0).getTag());
+        assertEquals(url, bookmarks.getBookmarkedURLs().get(0).getUrl().toString());
+        assertEquals(tag, bookmarks.getBookmarkedURLs().get(0).getTag());
     }
 
     @Test
@@ -76,14 +76,14 @@ class BookmarksTest {
         //when
         bookmarks.addURLtoBookmarks(url);
         List<Bookmark> bookmarkList = bookmarks.findBookmarkByURL(url);
-        
+
         //then
         assertEquals(url, bookmarkList.get(0).getUrl().toString());
-        
+
     }
 
     @Test
-    public void checkIfNonExistingBookmarksThrowsException() throws MalformedURLException {
+    public void checkIfNonExistingBookmarksReturnsNull() throws MalformedURLException {
         //given
         Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
         String url = "https://google.com";
@@ -92,10 +92,7 @@ class BookmarksTest {
         bookmarks.addURLtoBookmarks(url);
 
         //then
-        assertThrows(IllegalArgumentException.class, ()->
-                //when
-                bookmarks.findBookmarkByURL("url")
-                );
+        assertNull(bookmarks.findBookmarkByURL(""));
 
     }
 
@@ -126,5 +123,20 @@ class BookmarksTest {
 
         assertTrue(bookmarks.getBookmarkedURLs().isEmpty());
 
+    }
+
+
+    @Test
+    public void checkIfRatingIsIncreasedWhileAddingANewBookmarkThatExists() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        String url = "https://google.com";
+
+        //when
+        bookmarks.addURLtoBookmarks(url);
+        bookmarks.addURLtoBookmarks(url);
+
+        assertEquals(1, bookmarks.getBookmarkedURLs().size());
+        assertEquals(1, bookmarks.getBookmarkedURLs().get(0).getRating());
     }
 }
