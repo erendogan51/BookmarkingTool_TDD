@@ -22,4 +22,7 @@ public class Bookmark {
         this.url = url;
     }
 
+    public void increaseRating() {
+        this.setRating(this.getRating()+1);
+    }
 }

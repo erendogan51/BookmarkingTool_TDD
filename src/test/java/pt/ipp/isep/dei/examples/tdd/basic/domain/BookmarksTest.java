@@ -6,8 +6,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class BookmarksTest {
@@ -102,7 +101,30 @@ class BookmarksTest {
 
 
     @Test
-    public void checkIfRatingIsIncreasedWhenDuplicateURLisBookmarked(){
+    public void checkIfRatingIsIncreasedWhenDuplicateURLisBookmarked() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        String url = "https://google.com";
+
+        //when
+        bookmarks.addURLtoBookmarks(url);
+        bookmarks.increaseRatingForExistingBookmark(bookmarks.getBookmarkedURLs());
+
+        assertEquals(1, bookmarks.getBookmarkedURLs().get(0).getRating());
+
+    }
+
+    @Test
+    public void checkIfRatingIsNotIncreasedWhenDuplicateURLisNotPresent() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        String url = "https://google.com";
+
+        //when
+        //bookmarks.addURLtoBookmarks(url);
+        bookmarks.increaseRatingForExistingBookmark(bookmarks.getBookmarkedURLs());
+
+        assertTrue(bookmarks.getBookmarkedURLs().isEmpty());
 
     }
 }

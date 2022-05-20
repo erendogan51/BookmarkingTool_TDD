@@ -19,6 +19,7 @@ public class Bookmarks {
         Bookmark url = Bookmark
                 .builder()
                 .url(new URL(urlAsString))
+                .rating(0)
                 .build();
         this.bookmarkedURLs.add(url);
     }
@@ -28,6 +29,7 @@ public class Bookmarks {
                 .builder()
                 .url(new URL(urlAsString))
                 .tag(tag)
+                .rating(0)
                 .build();
         this.bookmarkedURLs.add(url);
     }
@@ -45,5 +47,12 @@ public class Bookmarks {
         if (bookmarkList.isEmpty()) throw new IllegalArgumentException("URL was not found");
 
         return bookmarkList;
+    }
+
+    public void increaseRatingForExistingBookmark(List<Bookmark> bookmarkList){
+
+        if (bookmarkList == null || bookmarkList.isEmpty()) return;
+
+        bookmarkList.get(0).increaseRating();
     }
 }
