@@ -2,9 +2,7 @@ package pt.ipp.isep.dei.examples.tdd.basic.domain;
 
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,7 +74,6 @@ class BookmarksTest {
         Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
         String url = "https://google.com";
 
-
         //when
         bookmarks.addURLtoBookmarks(url);
         List<Bookmark> bookmarkList = bookmarks.findBookmarkByURL(url);
@@ -84,5 +81,28 @@ class BookmarksTest {
         //then
         assertEquals(url, bookmarkList.get(0).getUrl().toString());
         
+    }
+
+    @Test
+    public void checkIfNonExistingBookmarksThrowsException() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        String url = "https://google.com";
+
+        //when
+        bookmarks.addURLtoBookmarks(url);
+
+        //then
+        assertThrows(IllegalArgumentException.class, ()->
+                //when
+                bookmarks.findBookmarkByURL("url")
+                );
+
+    }
+
+
+    @Test
+    public void checkIfRatingIsIncreasedWhenDuplicateURLisBookmarked(){
+
     }
 }
