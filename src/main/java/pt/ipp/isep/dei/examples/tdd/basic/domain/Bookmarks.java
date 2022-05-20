@@ -15,22 +15,6 @@ public class Bookmarks {
 
     private final List<Bookmark> bookmarkedURLs;
 
-    public void addURLtoBookmarks(String urlAsString) throws MalformedURLException {
-
-        List<Bookmark> bookmarkList = findBookmarkByURL(urlAsString);
-
-        if (bookmarkList == null || bookmarkList.isEmpty()){
-            Bookmark url = Bookmark
-                    .builder()
-                    .url(new URL(urlAsString))
-                    .rating(0)
-                    .build();
-            this.bookmarkedURLs.add(url);
-        }
-
-        increaseRatingForExistingBookmark(bookmarkList);
-    }
-
     public void addURLtoBookmarks(String urlAsString, String tag) throws MalformedURLException {
 
         List<Bookmark> bookmarkList = findBookmarkByURL(urlAsString);
@@ -46,10 +30,9 @@ public class Bookmarks {
         }
 
         increaseRatingForExistingBookmark(bookmarkList);
-
     }
 
-    public void addTagToExistingBookmark(String tag, String url){
+    public void addTagToExistingBookmark(String url, String tag){
         findBookmarkByURL(url).get(0).setTag(tag);
     }
 
