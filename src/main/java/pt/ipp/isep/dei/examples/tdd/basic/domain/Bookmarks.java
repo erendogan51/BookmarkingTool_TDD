@@ -70,4 +70,14 @@ public class Bookmarks {
 
         bookmarkList.get(0).increaseRating();
     }
+
+    public int getNumberOfSecureURLsInBookmarksList() {
+        int numberOfSecureURLs = 0;
+
+        for (Bookmark bookmark:this.bookmarkedURLs) {
+            if (bookmark.getUrl().getProtocol().equals("https")) numberOfSecureURLs++;
+        }
+
+        return numberOfSecureURLs;
+    }
 }

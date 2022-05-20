@@ -139,4 +139,36 @@ class BookmarksTest {
         assertEquals(1, bookmarks.getBookmarkedURLs().size());
         assertEquals(1, bookmarks.getBookmarkedURLs().get(0).getRating());
     }
+
+    @Test
+    public void checkIfAmountOfSecureURLsCanBeDetermined() throws MalformedURLException {
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        int actual = 0;
+        String url1 = "https://google.com";
+        String url2 = "https://orf.at";
+        String url3 = "http://orf.at";
+
+        //when
+        bookmarks.addURLtoBookmarks(url1);
+        actual = bookmarks.getNumberOfSecureURLsInBookmarksList();
+
+        //then
+        assertEquals(1, actual);
+
+
+        //when
+        bookmarks.addURLtoBookmarks(url2);
+        actual = bookmarks.getNumberOfSecureURLsInBookmarksList();
+
+        //then
+        assertEquals(2, actual);
+
+        //when
+        bookmarks.addURLtoBookmarks(url3);
+        actual = bookmarks.getNumberOfSecureURLsInBookmarksList();
+
+        //then
+        assertEquals(2, actual);
+
+    }
 }
