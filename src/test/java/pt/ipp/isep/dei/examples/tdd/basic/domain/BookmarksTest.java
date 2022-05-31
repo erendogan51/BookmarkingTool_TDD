@@ -3,9 +3,13 @@ package pt.ipp.isep.dei.examples.tdd.basic.domain;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -173,10 +177,36 @@ class BookmarksTest {
 
     }
 
+    @Test
+    public void checkIfBookmarksCanBeFiltersByOneKeyWord() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        String url1 = "https://google.com";
+        String url2 = "https://mail.google.com";
+        Set<String> keywords = new HashSet<>();
 
+        //when
+        bookmarks.addURLtoBookmarks(url1, "tag1");
+        bookmarks.addURLtoBookmarks(url2, "tag2");
+
+        keywords.add("tag1");
+
+        Set<Bookmark> actual = bookmarks.filterBookmarksByKeyWords(keywords);
+
+
+        assertEquals(url1, actual.iterator().next().getUrl().toString());
+
+    }
+
+
+
+
+
+    /*
     @Disabled
     @Test
-    public void checkIfAddedBookmarkIsBeingAssociatedWithOtherBookmarksFromSameDomain() throws MalformedURLException {
+    public void checkIfAddedBookmarkIsBeingAssociatedWithOtherBookmarksFromSameDomain() throws IOException, URISyntaxException {
+        //given
         Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
         String url1 = "https://google.com";
         String url2 = "https://mail.google.com";
@@ -184,5 +214,35 @@ class BookmarksTest {
         //when
         bookmarks.addURLtoBookmarks(url1, null);
         bookmarks.addURLtoBookmarks(url2, null);
+
+        bookmarks.associateURLWithExistingBookmarks(url1);
+
+        assertFalse(false);
+
     }
+
+    @Disabled
+    @Test
+    public void checkIfDomainCanBeExtractedFromURL() throws MalformedURLException {
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        String url1 = "https://www.google.com";
+        String url2 = "https://www.mail.google.com";
+
+        //when
+        bookmarks.addURLtoBookmarks(url1, null);
+        bookmarks.addURLtoBookmarks(url2, null);
+
+        String actual1 = bookmarks.getDomainOfURL(url1);
+        String actual2 = bookmarks.getDomainOfURL(url2);
+
+
+        System.out.println(actual1);
+        System.out.println(actual2);
+
+        assertEquals("google.com", actual1);
+        assertEquals("google.com", actual2);
+
+    }
+
+     */
 }

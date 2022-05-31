@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.net.URL;
+import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @Getter
@@ -17,6 +19,7 @@ public class Bookmark {
     private URL url;
     private String tag;
     private int rating;
+    private Set<String> keywords;
 
 
     public void increaseRating() {
