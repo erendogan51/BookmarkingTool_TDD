@@ -198,6 +198,32 @@ class BookmarksTest {
 
     }
 
+    @Test
+    public void checkIfBookmarksCanBeFiltersByMultipleKeyWord() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        String url1 = "https://google.com";
+        String url2 = "https://mail.google.com";
+        Set<String> keywords = new HashSet<>();
+        Set<Bookmark> bookmarkSet = new HashSet<>();
+
+        //when
+        bookmarks.addURLtoBookmarks(url1, "tag1");
+        bookmarks.addURLtoBookmarks(url2, "tag2");
+        bookmarkSet.add(bookmarks.findBookmarkByURL(url1).get(0));
+        bookmarkSet.add(bookmarks.findBookmarkByURL(url2).get(0));
+
+        bookmarks.findBookmarkByURL(url2).get(0).addKeyWord("keyword2");
+
+        keywords.add("tag1");
+        keywords.add("keyword2");
+
+        Set<Bookmark> actual = bookmarks.filterBookmarksByKeyWords(keywords);
+
+
+        assertTrue(actual.containsAll(bookmarkSet));
+
+    }
 
 
 
