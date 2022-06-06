@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.examples.tdd.basic.domain;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -446,24 +447,24 @@ class BookmarksTest {
         //given
         String path = "bookmark_backups.txt";
         Bookmarks bookmarks1 = new Bookmarks("user1", new ArrayList<>());
-        Scanner myReader = new Scanner(path);
+        BufferedReader br = new BufferedReader(new FileReader(path));
         String url1 = "https://google.com";
-        String data = null;
+        String line = null;
+        StringBuffer stringBuffer = new StringBuffer();
 
 
         //when
         bookmarks1.addURLtoBookmarks(url1, "tag1");
         bookmarks1.backupToFile("bookmark_backups.txt");
 
-        while (myReader.hasNextLine()) {
-            data = myReader.nextLine();
-            System.out.println(data);
+        while ((line = br.readLine()) != null) {
+            stringBuffer.append(line);
         }
-        myReader.close();
+
 
 
         //then
-        assertEquals(path, data);
+        assertEquals(url1, stringBuffer.toString());
     }
 
     @Test
