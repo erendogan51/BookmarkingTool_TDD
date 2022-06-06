@@ -450,7 +450,7 @@ class BookmarksTest {
         BufferedReader br = new BufferedReader(new FileReader(path));
         String url1 = "https://google.com";
         String line = null;
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuffer = new StringBuilder();
 
 
         //when
