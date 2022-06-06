@@ -144,6 +144,7 @@ public class Bookmarks {
     }
 
     public void backupToJSON(String path) {
+        if (path == null || path.equals("")) throw new IllegalArgumentException("specify a path");
         try (PrintWriter out = new PrintWriter(new FileWriter(path))) {
             FileWriter fileWriter = new FileWriter(path);
             fileWriter.write(path);
@@ -157,6 +158,7 @@ public class Bookmarks {
 
 
     public void restoreBookmarksFromFile(String path)   {
+        if (path == null || path.equals("")) throw new IllegalArgumentException("specify a path");
         try {
             Reader reader = Files.newBufferedReader(Paths.get(path));
 

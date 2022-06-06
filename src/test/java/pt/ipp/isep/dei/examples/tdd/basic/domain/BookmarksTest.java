@@ -453,9 +453,8 @@ class BookmarksTest {
         bookmarks1.addURLtoBookmarks(url3, "tag1");
         bookmarks1.addURLtoBookmarks(url2, "tag1");
 
-
         //then
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             bookmarks1.backupToJSON(null);
         });
     }
