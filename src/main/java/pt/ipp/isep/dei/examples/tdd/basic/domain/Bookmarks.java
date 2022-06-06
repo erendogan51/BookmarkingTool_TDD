@@ -3,6 +3,9 @@ package pt.ipp.isep.dei.examples.tdd.basic.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -131,6 +134,22 @@ public class Bookmarks {
 
     public void sortBookmarksByDatetime() {
         Collections.sort(bookmarkedURLs);
+    }
+
+    public boolean backupToFile() {
+        try {
+            FileWriter writer = new FileWriter("bookmark_backups.txt");
+            for(Bookmark bookmark: bookmarkedURLs) {
+                writer.write(bookmark.getUrl() + System.lineSeparator());
+
+            }
+            writer.close();
+            return true;
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        return false;
     }
 
 

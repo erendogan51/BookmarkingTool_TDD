@@ -442,6 +442,26 @@ class BookmarksTest {
     }
 
 
+    @Test
+    public void checkIfBookmarksCanBeBackupedToAFile() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks1 = new Bookmarks("user1", new ArrayList<>());
+        String url1 = "https://google.com";
+        String url2 = "https://mail.google.com";
+        String url3 = "https://notes.google.com";
+
+        //when
+        bookmarks1.addURLtoBookmarks(url1, "tag1");
+        bookmarks1.addURLtoBookmarks(url3, "tag1");
+        bookmarks1.addURLtoBookmarks(url2, "tag1");
+
+
+        boolean actual = bookmarks1.backupToFile();
+
+
+        //then
+        assertTrue(actual);
+    }
 
 
 
