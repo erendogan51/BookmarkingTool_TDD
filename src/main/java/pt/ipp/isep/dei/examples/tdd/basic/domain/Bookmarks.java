@@ -1,15 +1,17 @@
 package pt.ipp.isep.dei.examples.tdd.basic.domain;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import lombok.Getter;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
-
 
 
 @Getter
@@ -19,7 +21,7 @@ public class Bookmarks {
     private final List<Bookmark> bookmarkedURLs;
 
     public Bookmarks(String owner, List<Bookmark> bookmarkedURLs) {
-        if (owner == null || owner.equals("")){
+        if (owner == null || owner.equals("")) {
             throw new IllegalArgumentException("must specify a owner");
         }
         this.owner = owner;
@@ -141,15 +143,34 @@ public class Bookmarks {
         Collections.sort(bookmarkedURLs);
     }
 
-    public void backupToFile(String path) {
-        try {
-            FileWriter writer = new FileWriter(path);
-            for(Bookmark bookmark: bookmarkedURLs) {
-                writer.write(bookmark.getUrl() + System.lineSeparator());
-            }
-            writer.close();
-        } catch (IOException e) {
+    public void backupToJSON(String path) {
+        try (PrintWriter out = new PrintWriter(new FileWriter(path))) {
+            FileWriter fileWriter = new FileWriter(path);
+            fileWriter.write(path);
+            Gson gson = new Gson();
+            String jsonString = gson.toJson(bookmarkedURLs);
+            out.write(jsonString);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+
+
+    public void restoreBookmarksFromFile(String path)   {
+        try {
+            Reader reader = Files.newBufferedReader(Paths.get(path));
+
+            List<Bookmark> bookmarkList = new Gson().fromJson(reader, new TypeToken<List<Bookmark>>() {}.getType());
+
+            reader.close();
+
+            bookmarkedURLs.addAll(bookmarkList);
+
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
 
     }
 

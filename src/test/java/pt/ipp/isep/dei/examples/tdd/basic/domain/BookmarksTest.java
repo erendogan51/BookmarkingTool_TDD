@@ -1,14 +1,12 @@
 package pt.ipp.isep.dei.examples.tdd.basic.domain;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.time.temporal.TemporalAmount;
-import java.time.temporal.TemporalUnit;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -443,31 +441,6 @@ class BookmarksTest {
 
 
     @Test
-    public void checkIfBookmarksCanBeBackupedToAFile() throws IOException {
-        //given
-        String path = "bookmark_backups.txt";
-        Bookmarks bookmarks1 = new Bookmarks("user1", new ArrayList<>());
-        BufferedReader br = new BufferedReader(new FileReader(path));
-        String url1 = "https://google.com";
-        String line = null;
-        StringBuilder stringBuffer = new StringBuilder();
-
-
-        //when
-        bookmarks1.addURLtoBookmarks(url1, "tag1");
-        bookmarks1.backupToFile("bookmark_backups.txt");
-
-        while ((line = br.readLine()) != null) {
-            stringBuffer.append(line);
-        }
-
-
-
-        //then
-        assertEquals(url1, stringBuffer.toString());
-    }
-
-    @Test
     public void checkIfExceptionIsThrownWhenIllegalPathIsGiven() throws MalformedURLException {
         //given
         Bookmarks bookmarks1 = new Bookmarks("user1", new ArrayList<>());
@@ -483,7 +456,7 @@ class BookmarksTest {
 
         //then
         assertThrows(NullPointerException.class, () -> {
-            bookmarks1.backupToFile(null);
+            bookmarks1.backupToJSON(null);
         });
     }
 
@@ -494,6 +467,62 @@ class BookmarksTest {
         assertThrows(IllegalArgumentException.class, () -> {
             new Bookmarks(null, new ArrayList<>());
         });
+    }
+
+    @Test
+    public void checkIfBookmarksCanBeBackupedToAFile() throws IOException {
+        //given
+        String path = "bookmark_backups.json";
+        Bookmarks bookmarks1 = new Bookmarks("user1", new ArrayList<>());
+        BufferedReader br;
+        String url1 = "https://google.com";
+        String url2 = "https://mail.google.com";
+        String url3 = "https://notes.google.com";
+
+
+        //when
+        bookmarks1.addURLtoBookmarks(url1, "tag1");
+        bookmarks1.addURLtoBookmarks(url2, "tag1");
+        bookmarks1.addURLtoBookmarks(url3, "tag1");
+        bookmarks1.backupToJSON("bookmark_backups.json");
+        bookmarks1.removeURLfromBookmarks(url1);
+        bookmarks1.removeURLfromBookmarks(url2);
+        bookmarks1.removeURLfromBookmarks(url3);
+
+        bookmarks1.getBookmarkedURLs().forEach(System.out::println);
+
+        assertTrue(bookmarks1.getBookmarkedURLs().isEmpty());
+
+        bookmarks1.restoreBookmarksFromFile(path);
+
+        bookmarks1.getBookmarkedURLs().forEach(System.out::println);
+
+        //then
+        assertFalse(bookmarks1.getBookmarkedURLs().isEmpty());
+    }
+
+    @Disabled
+    @Test
+    public void checkIfBackupCanBeReadToBookmarks() throws IOException {
+        //given
+        String path = "bookmark_backups.json";
+        Bookmarks bookmarks1 = new Bookmarks("user1", new ArrayList<>());
+        BufferedReader br = new BufferedReader(new FileReader(path));
+        String url1 = "https://google.com";
+        String line = null;
+        StringBuilder stringBuffer = new StringBuilder();
+
+
+        //when
+        bookmarks1.addURLtoBookmarks(url1, "tag1");
+        //bookmarks1.restoreBookmarksFromFile("bookmark_backups.json");
+
+        while ((line = br.readLine()) != null) {
+            stringBuffer.append(line);
+        }
+
+        //then
+        assertEquals(url1, stringBuffer.toString());
     }
 
 

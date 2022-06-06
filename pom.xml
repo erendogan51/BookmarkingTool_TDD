@@ -52,6 +52,11 @@
             <artifactId>lombok</artifactId>
             <version>1.18.22</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.9.0</version>
+        </dependency>
 
         <!-- Javadoc plugin does not require to be explicitly stated-->
         <!-- Maven goal: mvn clean javadoc:javadoc javadoc:test-javadoc -->
