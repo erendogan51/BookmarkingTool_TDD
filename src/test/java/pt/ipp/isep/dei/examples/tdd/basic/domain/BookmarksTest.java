@@ -304,7 +304,7 @@ class BookmarksTest {
         bookmarks.removeURLfromBookmarks(url1);
 
         //then
-        assertEquals(bookmarks.getBookmarkedURLs().get(0).getUrl().toString(), url2);
+        assertEquals(url2, bookmarks.getBookmarkedURLs().get(0).getUrl().toString());
     }
 
     @Test
@@ -319,9 +319,23 @@ class BookmarksTest {
 
 
         //then
-        assertThrows(IllegalArgumentException.class, ()->{
+        assertThrows(IllegalArgumentException.class, () -> {
             bookmarks.removeURLfromBookmarks(url2);
         });
+    }
+
+    @Test
+    public void checkIfLocalDateTimeIsAddedWhenAddingANewBookmark() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        String url1 = "https://google.com";
+        String url2 = "https://mail.google.com";
+
+        //when
+        bookmarks.addURLtoBookmarks(url1, "tag1");
+
+        //then
+        assertNotNull(bookmarks.getBookmarkedURLs().get(0).getLocalDateTime());
     }
 
 

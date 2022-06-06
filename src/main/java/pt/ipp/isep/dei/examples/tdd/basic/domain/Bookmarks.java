@@ -7,10 +7,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -37,11 +35,12 @@ public class Bookmarks {
                     .tag(tag)
                     .rating(0)
                     .keywords(keywords)
+                    .localDateTime(LocalDateTime.now())
                     .build();
             this.bookmarkedURLs.add(url);
         }
 
-        if (bookmarkList != null && !bookmarkList.isEmpty()){
+        if (bookmarkList != null && !bookmarkList.isEmpty()) {
             increaseRatingForExistingBookmark(bookmarkList);
         }
 
@@ -100,15 +99,15 @@ public class Bookmarks {
 
         List<Bookmark> bookmarkList = findBookmarkByURL(url);
 
-        if (bookmarkList == null || bookmarkList.isEmpty()){
+        if (bookmarkList == null || bookmarkList.isEmpty()) {
             throw new IllegalArgumentException("no such bookmark found");
         }
 
-        if (!bookmarkList.get(0).getTag().equals(tag)){
+        if (!bookmarkList.get(0).getTag().equals(tag)) {
             throw new IllegalArgumentException("provided tag doesnt match existing one");
         }
 
-        if (bookmarkList != null && !bookmarkList.isEmpty() && bookmarkList.get(0).getTag().equals(tag)){
+        if (bookmarkList != null && !bookmarkList.isEmpty() && bookmarkList.get(0).getTag().equals(tag)) {
             bookmarkList.get(0).setTag(null);
         }
 
@@ -119,14 +118,14 @@ public class Bookmarks {
         List<Bookmark> bookmarkList = findBookmarkByURL(url);
 
 
-        if (bookmarkList == null || bookmarkList.isEmpty()){
+        if (bookmarkList == null || bookmarkList.isEmpty()) {
             throw new IllegalArgumentException("no such bookmark found");
         }
-        
-        if (bookmarkList.get(0).getUrl().toString().equals(url)){
+
+        if (bookmarkList.get(0).getUrl().toString().equals(url)) {
             this.bookmarkedURLs.remove(0);
         }
-        
+
     }
 
 

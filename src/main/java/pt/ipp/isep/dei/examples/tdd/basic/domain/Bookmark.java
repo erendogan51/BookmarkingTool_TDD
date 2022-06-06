@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +21,7 @@ public class Bookmark {
     private String tag;
     private int rating;
     private Set<String> keywords;
+    private LocalDateTime localDateTime;
 
 
     public void increaseRating() {
