@@ -35,14 +35,13 @@ public class Bookmarks {
 
 
         if (bookmarkList == null) {
-            Bookmark url = Bookmark
-                    .builder()
-                    .url(new URL(urlAsString))
-                    .tag(tag)
-                    .rating(0)
-                    .keywords(keywords)
-                    .localDateTime(LocalDateTime.now())
-                    .build();
+            Bookmark url = new Bookmark(
+                    new URL(urlAsString),
+                    tag,
+                    0,
+                    keywords,
+                    LocalDateTime.now()
+            );
             this.bookmarkedURLs.add(url);
         }
 
@@ -142,19 +141,16 @@ public class Bookmarks {
         Collections.sort(bookmarkedURLs);
     }
 
-    public boolean backupToFile(String path) {
+    public void backupToFile(String path) {
         try {
             FileWriter writer = new FileWriter(path);
             for(Bookmark bookmark: bookmarkedURLs) {
                 writer.write(bookmark.getUrl() + System.lineSeparator());
             }
             writer.close();
-            return true;
         } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
         }
-        return false;
+
     }
 
 

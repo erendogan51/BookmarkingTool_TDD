@@ -2,14 +2,13 @@ package pt.ipp.isep.dei.examples.tdd.basic.domain;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.time.temporal.TemporalAmount;
 import java.time.temporal.TemporalUnit;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -443,24 +442,28 @@ class BookmarksTest {
 
 
     @Test
-    public void checkIfBookmarksCanBeBackupedToAFile() throws MalformedURLException {
+    public void checkIfBookmarksCanBeBackupedToAFile() throws IOException {
         //given
+        String path = "bookmark_backups.txt";
         Bookmarks bookmarks1 = new Bookmarks("user1", new ArrayList<>());
+        Scanner myReader = new Scanner(path);
         String url1 = "https://google.com";
-        String url2 = "https://mail.google.com";
-        String url3 = "https://notes.google.com";
+        String data = null;
+
 
         //when
         bookmarks1.addURLtoBookmarks(url1, "tag1");
-        bookmarks1.addURLtoBookmarks(url3, "tag1");
-        bookmarks1.addURLtoBookmarks(url2, "tag1");
+        bookmarks1.backupToFile("bookmark_backups.txt");
 
-
-        boolean actual = bookmarks1.backupToFile("bookmark_backups.txt");
+        while (myReader.hasNextLine()) {
+            data = myReader.nextLine();
+            System.out.println(data);
+        }
+        myReader.close();
 
 
         //then
-        assertTrue(actual);
+        assertEquals(path, data);
     }
 
     @Test

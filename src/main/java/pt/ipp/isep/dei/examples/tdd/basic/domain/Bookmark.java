@@ -14,7 +14,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder
 public class Bookmark implements Comparable<Bookmark>{
 
     private URL url;

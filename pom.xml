@@ -161,6 +161,10 @@
                         <param>pt.ipp.isep.dei.examples.tdd.basic.domain.*</param>
                     </targetTests>
 
+                    <excludedMethods>
+                        <param>pt.ipp.isep.dei.examples.tdd.basic.domain.Bookmark.Builder</param>
+                    </excludedMethods>
+
                     <outputFormats>
                         <outputFormat>XML</outputFormat>
                         <outputFormat>HTML</outputFormat>
