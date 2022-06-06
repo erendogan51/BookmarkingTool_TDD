@@ -124,6 +124,7 @@ class BookmarksTest {
         //when
         bookmarks.addURLtoBookmarks(url, null);
 
+        //then
         assertEquals(0, bookmarks.getBookmarkedURLs().get(0).getRating());
 
     }
@@ -138,6 +139,7 @@ class BookmarksTest {
         //bookmarks.addURLtoBookmarks(url);
         bookmarks.increaseRatingForExistingBookmark(bookmarks.getBookmarkedURLs());
 
+        //then
         assertTrue(bookmarks.getBookmarkedURLs().isEmpty());
 
     }
@@ -153,6 +155,7 @@ class BookmarksTest {
         bookmarks.addURLtoBookmarks(url, null);
         bookmarks.addURLtoBookmarks(url, null);
 
+        //then
         assertEquals(1, bookmarks.getBookmarkedURLs().size());
         assertEquals(1, bookmarks.getBookmarkedURLs().get(0).getRating());
     }
@@ -205,7 +208,7 @@ class BookmarksTest {
 
         Set<Bookmark> actual = bookmarks.filterBookmarksByKeyWords(keywords);
 
-
+        //then
         assertEquals(url1, actual.iterator().next().getUrl().toString());
 
     }
@@ -232,10 +235,38 @@ class BookmarksTest {
 
         Set<Bookmark> actual = bookmarks.filterBookmarksByKeyWords(keywords);
 
-
+        //then
         assertTrue(actual.containsAll(bookmarkSet));
 
     }
+
+    @Test
+    public void checkIfOneKeywordCanBeRemovedFromBookmark() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        String url1 = "https://google.com";
+        String url2 = "https://mail.google.com";
+        Set<String> keywords = new HashSet<>();
+
+        //when
+        bookmarks.addURLtoBookmarks(url1, "tag1");
+        bookmarks.addURLtoBookmarks(url2, "tag2");
+
+        keywords.add("tag1");
+
+        Set<Bookmark> actual = bookmarks.filterBookmarksByKeyWords(keywords);
+
+        //then
+        assertEquals(url1, actual.iterator().next().getUrl().toString());
+
+        //when
+        bookmarks.removeKeywordFromBookmark(url1, "tag1");
+
+        //then
+        assertNull(bookmarks.getBookmarkedURLs().get(0).getTag());
+    }
+
+
 
 
 

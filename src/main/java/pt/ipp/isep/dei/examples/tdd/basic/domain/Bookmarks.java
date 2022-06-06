@@ -96,6 +96,24 @@ public class Bookmarks {
         return bookmarkHashSet;
     }
 
+    public void removeKeywordFromBookmark(String url, String tag) {
+
+        List<Bookmark> bookmarkList = findBookmarkByURL(url);
+
+        if (bookmarkList == null || bookmarkList.isEmpty()){
+            throw new IllegalArgumentException("no such bookmark found");
+        }
+
+        if (!bookmarkList.get(0).getTag().equals(tag)){
+            throw new IllegalArgumentException("provided tag doesnt match existing one");
+        }
+
+        if (bookmarkList != null && !bookmarkList.isEmpty() && bookmarkList.get(0).getTag().equals(tag)){
+            bookmarkList.get(0).setTag(null);
+        }
+
+    }
+
 
 
     /*
