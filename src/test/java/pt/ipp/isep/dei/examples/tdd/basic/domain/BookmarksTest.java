@@ -241,25 +241,15 @@ class BookmarksTest {
     }
 
     @Test
-    public void checkIfOneKeywordCanBeRemovedFromBookmark() throws MalformedURLException {
+    public void checkIfTagCanBeRemovedFromBookmark() throws MalformedURLException {
         //given
         Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
         String url1 = "https://google.com";
         String url2 = "https://mail.google.com";
-        Set<String> keywords = new HashSet<>();
 
         //when
         bookmarks.addURLtoBookmarks(url1, "tag1");
         bookmarks.addURLtoBookmarks(url2, "tag2");
-
-        keywords.add("tag1");
-
-        Set<Bookmark> actual = bookmarks.filterBookmarksByKeyWords(keywords);
-
-        //then
-        assertEquals(url1, actual.iterator().next().getUrl().toString());
-
-        //when
         bookmarks.removeKeywordFromBookmark(url1, "tag1");
 
         //then
@@ -272,22 +262,32 @@ class BookmarksTest {
         Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
         String url1 = "https://google.com";
         String url2 = "https://mail.google.com";
-        Set<String> keywords = new HashSet<>();
 
         //when
         bookmarks.addURLtoBookmarks(url1, "tag1");
         bookmarks.addURLtoBookmarks(url2, "tag2");
 
-        keywords.add("tag1");
-
-        Set<Bookmark> actual = bookmarks.filterBookmarksByKeyWords(keywords);
-
         //then
-        assertEquals(url1, actual.iterator().next().getUrl().toString());
+        assertThrows(IllegalArgumentException.class, () -> {
+            //when
+            bookmarks.removeKeywordFromBookmark(url1, "tag2");
+        });
+    }
+
+    @Test
+    public void checkIfDesiredBookMarkExistBeforeRemovingTag() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        String url1 = "https://google.com";
+        String url2 = "https://mail.google.com";
+
+        //when
+        bookmarks.addURLtoBookmarks(url1, "tag1");
 
         //then
         assertThrows(IllegalArgumentException.class, () -> {
-            bookmarks.removeKeywordFromBookmark(url1, "tag2");
+            //when
+            bookmarks.removeKeywordFromBookmark(url2, "tag2");
         });
     }
 
