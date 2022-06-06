@@ -125,9 +125,11 @@ public class Bookmarks {
     }
 
     public void sortBookmarksByRatingDesc() {
+        bookmarkedURLs.sort((s1, s2) -> Integer.compare(s2.getRating(), s1.getRating()));
+    }
 
-        bookmarkedURLs.sort((s1, s2) ->
-                Integer.compare(s2.getRating(), s1.getRating()));
+    public void sortBookmarksByDatetime() {
+        Collections.sort(bookmarkedURLs);
     }
 
 

@@ -15,7 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-public class Bookmark {
+public class Bookmark implements Comparable<Bookmark>{
 
     private URL url;
     private String tag;
@@ -33,4 +33,11 @@ public class Bookmark {
     }
 
 
+    @Override
+    public int compareTo(Bookmark o) {
+        if (getLocalDateTime() == null || o.getLocalDateTime() == null) {
+            return 0;
+        }
+        return getLocalDateTime().compareTo(o.getLocalDateTime());
+    }
 }

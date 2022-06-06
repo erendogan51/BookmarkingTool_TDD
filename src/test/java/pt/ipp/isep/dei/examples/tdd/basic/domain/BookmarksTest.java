@@ -3,6 +3,8 @@ package pt.ipp.isep.dei.examples.tdd.basic.domain;
 import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
+import java.time.temporal.TemporalAmount;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -365,7 +367,58 @@ class BookmarksTest {
         assertEquals(0, bookmarks.getBookmarkedURLs().get(2).getRating());
     }
 
+    @Test
+    public void checkIfBookmarksCanBeSortedByDateTime() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        String url1 = "https://google.com";
+        String url2 = "https://mail.google.com";
+        String url3 = "https://notes.google.com";
 
+        //when
+        bookmarks.addURLtoBookmarks(url1, "tag1");
+        bookmarks.addURLtoBookmarks(url2, "tag1");
+        bookmarks.addURLtoBookmarks(url3, "tag1");
+
+        //when
+        bookmarks.getBookmarkedURLs()
+                .get(0)
+                .setLocalDateTime(
+                        bookmarks
+                                .getBookmarkedURLs()
+                                .get(0)
+                                .getLocalDateTime().plusMinutes(10)
+                );
+
+        bookmarks.getBookmarkedURLs()
+                .get(1)
+                .setLocalDateTime(
+                        bookmarks
+                                .getBookmarkedURLs()
+                                .get(1)
+                                .getLocalDateTime().plusMinutes(4)
+                );
+
+        for (Bookmark bookmark : bookmarks.getBookmarkedURLs()) {
+            System.out.println(bookmark.getLocalDateTime());
+        }
+
+        bookmarks.sortBookmarksByDatetime();
+
+        for (Bookmark bookmark : bookmarks.getBookmarkedURLs()) {
+            System.out.println(bookmark.getLocalDateTime());
+        }
+
+
+        //then
+        assertTrue(bookmarks.getBookmarkedURLs().get(0).getLocalDateTime().isBefore(
+                bookmarks.getBookmarkedURLs().get(1).getLocalDateTime()
+        ));
+        assertTrue(bookmarks.getBookmarkedURLs().get(1).getLocalDateTime().isBefore(
+                bookmarks.getBookmarkedURLs().get(2).getLocalDateTime()
+        ));
+
+    }
 
 
     /*
