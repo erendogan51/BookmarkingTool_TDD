@@ -114,6 +114,21 @@ public class Bookmarks {
 
     }
 
+    public void removeURLfromBookmarks(String url) {
+
+        List<Bookmark> bookmarkList = findBookmarkByURL(url);
+
+
+        if (bookmarkList == null || bookmarkList.isEmpty()){
+            throw new IllegalArgumentException("no such bookmark found");
+        }
+        
+        if (bookmarkList.get(0).getUrl().toString().equals(url)){
+            this.bookmarkedURLs.remove(0);
+        }
+        
+    }
+
 
 
     /*

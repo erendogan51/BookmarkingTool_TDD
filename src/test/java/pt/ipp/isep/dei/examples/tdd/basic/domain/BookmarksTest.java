@@ -291,6 +291,23 @@ class BookmarksTest {
         });
     }
 
+    @Test
+    public void checkIfBookmarkCanBeRemoved() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        String url1 = "https://google.com";
+        String url2 = "https://mail.google.com";
+
+        //when
+        bookmarks.addURLtoBookmarks(url1, "tag1");
+        bookmarks.addURLtoBookmarks(url2, "tag2");
+        bookmarks.removeURLfromBookmarks(url1);
+
+        //then
+        assertEquals(bookmarks.getBookmarkedURLs().get(0).getUrl().toString(), url2);
+    }
+
+
 
 
 
