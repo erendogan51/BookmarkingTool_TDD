@@ -437,7 +437,6 @@ class BookmarksTest {
         bookmarks1.addURLtoBookmarks(url2, "tag1");
 
 
-
         //then
         assertNotEquals(bookmarks1, bookmarks2);
     }
@@ -478,10 +477,18 @@ class BookmarksTest {
         bookmarks1.addURLtoBookmarks(url2, "tag1");
 
 
+        //then
+        assertThrows(NullPointerException.class, () -> {
+            bookmarks1.backupToFile(null);
+        });
+    }
+
+    @Test
+    public void checkIfExceptionIsThrownWhenNoOwnerIsSpecified() {
 
         //then
-        assertThrows(NullPointerException.class, ()->{
-            bookmarks1.backupToFile(null);
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Bookmarks(null, new ArrayList<>());
         });
     }
 
