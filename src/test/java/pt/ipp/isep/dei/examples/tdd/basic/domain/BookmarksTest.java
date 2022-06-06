@@ -137,7 +137,7 @@ class BookmarksTest {
 
         //when
         //bookmarks.addURLtoBookmarks(url);
-        bookmarks.increaseRatingForExistingBookmark(bookmarks.getBookmarkedURLs());
+        bookmarks.increaseRatingForExistingBookmark(null);
 
         //then
         assertTrue(bookmarks.getBookmarkedURLs().isEmpty());
@@ -329,7 +329,6 @@ class BookmarksTest {
         //given
         Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
         String url1 = "https://google.com";
-        String url2 = "https://mail.google.com";
 
         //when
         bookmarks.addURLtoBookmarks(url1, "tag1");
@@ -338,6 +337,33 @@ class BookmarksTest {
         assertNotNull(bookmarks.getBookmarkedURLs().get(0).getLocalDateTime());
     }
 
+    @Test
+    public void checkIfBookmarksCanBeSortedByRating() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        String url1 = "https://google.com";
+        String url2 = "https://mail.google.com";
+        String url3 = "https://notes.google.com";
+
+        //when
+        bookmarks.addURLtoBookmarks(url1, "tag1");
+        bookmarks.addURLtoBookmarks(url1, "tag1");
+        bookmarks.addURLtoBookmarks(url1, "tag1");
+
+        bookmarks.addURLtoBookmarks(url3, "tag1");
+
+        bookmarks.addURLtoBookmarks(url2, "tag1");
+        bookmarks.addURLtoBookmarks(url2, "tag1");
+
+
+        bookmarks.sortBookmarksByRatingDesc();
+
+
+        //then
+        assertEquals(2, bookmarks.getBookmarkedURLs().get(0).getRating());
+        assertEquals(1, bookmarks.getBookmarkedURLs().get(1).getRating());
+        assertEquals(0, bookmarks.getBookmarkedURLs().get(2).getRating());
+    }
 
 
 

@@ -3,14 +3,10 @@ package pt.ipp.isep.dei.examples.tdd.basic.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 
@@ -28,7 +24,7 @@ public class Bookmarks {
         keywords.add(urlAsString);
 
 
-        if (bookmarkList == null || bookmarkList.isEmpty()) {
+        if (bookmarkList == null) {
             Bookmark url = Bookmark
                     .builder()
                     .url(new URL(urlAsString))
@@ -40,8 +36,8 @@ public class Bookmarks {
             this.bookmarkedURLs.add(url);
         }
 
-        if (bookmarkList != null && !bookmarkList.isEmpty()) {
-            increaseRatingForExistingBookmark(bookmarkList);
+        if (bookmarkList != null) {
+            increaseRatingForExistingBookmark(bookmarkList.get(0));
         }
 
 
@@ -62,11 +58,11 @@ public class Bookmarks {
         return bookmarkList;
     }
 
-    public void increaseRatingForExistingBookmark(List<Bookmark> bookmarkList) {
+    public void increaseRatingForExistingBookmark(Bookmark bookmark) {
 
-        if (bookmarkList == null || bookmarkList.isEmpty()) return;
+        if (bookmark == null) return;
 
-        bookmarkList.get(0).increaseRating();
+        bookmark.increaseRating();
     }
 
     public int getNumberOfSecureURLsInBookmarksList() {
@@ -127,6 +123,13 @@ public class Bookmarks {
         }
 
     }
+
+    public void sortBookmarksByRatingDesc() {
+
+        bookmarkedURLs.sort((s1, s2) ->
+                Integer.compare(s2.getRating(), s1.getRating()));
+    }
+
 
 
 

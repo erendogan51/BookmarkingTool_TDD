@@ -25,10 +25,12 @@ public class Bookmark {
 
 
     public void increaseRating() {
-        this.setRating(this.getRating()+1);
+        setRating(getRating() + 1);
     }
 
-    public void addKeyWord(String keyword){
+    public void addKeyWord(String keyword) {
         this.keywords.add(keyword);
     }
+
+
 }
