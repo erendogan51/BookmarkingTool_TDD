@@ -1,9 +1,7 @@
 package pt.ipp.isep.dei.examples.tdd.basic.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -13,12 +11,20 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-@AllArgsConstructor
+
 @Getter
 public class Bookmarks {
 
     private final String owner;
     private final List<Bookmark> bookmarkedURLs;
+
+    public Bookmarks(String owner, List<Bookmark> bookmarkedURLs) {
+        if (owner == null || owner.equals("")){
+            throw new IllegalArgumentException("must specify a owner");
+        }
+        this.owner = owner;
+        this.bookmarkedURLs = bookmarkedURLs;
+    }
 
     public void addURLtoBookmarks(String urlAsString, String tag) throws MalformedURLException {
 
@@ -136,12 +142,11 @@ public class Bookmarks {
         Collections.sort(bookmarkedURLs);
     }
 
-    public boolean backupToFile() {
+    public boolean backupToFile(String path) {
         try {
-            FileWriter writer = new FileWriter("bookmark_backups.txt");
+            FileWriter writer = new FileWriter(path);
             for(Bookmark bookmark: bookmarkedURLs) {
                 writer.write(bookmark.getUrl() + System.lineSeparator());
-
             }
             writer.close();
             return true;

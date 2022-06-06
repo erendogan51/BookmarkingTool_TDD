@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.examples.tdd.basic.domain;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.time.temporal.TemporalAmount;
 import java.time.temporal.TemporalUnit;
@@ -456,11 +457,32 @@ class BookmarksTest {
         bookmarks1.addURLtoBookmarks(url2, "tag1");
 
 
-        boolean actual = bookmarks1.backupToFile();
+        boolean actual = bookmarks1.backupToFile("bookmark_backups.txt");
 
 
         //then
         assertTrue(actual);
+    }
+
+    @Test
+    public void checkIfExceptionIsThrownWhenIllegalPathIsGiven() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks1 = new Bookmarks("user1", new ArrayList<>());
+        String url1 = "https://google.com";
+        String url2 = "https://mail.google.com";
+        String url3 = "https://notes.google.com";
+
+        //when
+        bookmarks1.addURLtoBookmarks(url1, "tag1");
+        bookmarks1.addURLtoBookmarks(url3, "tag1");
+        bookmarks1.addURLtoBookmarks(url2, "tag1");
+
+
+
+        //then
+        assertThrows(NullPointerException.class, ()->{
+            bookmarks1.backupToFile(null);
+        });
     }
 
 
