@@ -307,7 +307,22 @@ class BookmarksTest {
         assertEquals(bookmarks.getBookmarkedURLs().get(0).getUrl().toString(), url2);
     }
 
+    @Test
+    public void checkIfDesiredBookmarkExistsBeforeDeleting() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        String url1 = "https://google.com";
+        String url2 = "https://mail.google.com";
 
+        //when
+        bookmarks.addURLtoBookmarks(url1, "tag1");
+
+
+        //then
+        assertThrows(IllegalArgumentException.class, ()->{
+            bookmarks.removeURLfromBookmarks(url2);
+        });
+    }
 
 
 
