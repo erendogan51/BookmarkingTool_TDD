@@ -266,6 +266,31 @@ class BookmarksTest {
         assertNull(bookmarks.getBookmarkedURLs().get(0).getTag());
     }
 
+    @Test
+    public void checkIfNonMatchingTagIsNotRemoved() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        String url1 = "https://google.com";
+        String url2 = "https://mail.google.com";
+        Set<String> keywords = new HashSet<>();
+
+        //when
+        bookmarks.addURLtoBookmarks(url1, "tag1");
+        bookmarks.addURLtoBookmarks(url2, "tag2");
+
+        keywords.add("tag1");
+
+        Set<Bookmark> actual = bookmarks.filterBookmarksByKeyWords(keywords);
+
+        //then
+        assertEquals(url1, actual.iterator().next().getUrl().toString());
+
+        //then
+        assertThrows(IllegalArgumentException.class, () -> {
+            bookmarks.removeKeywordFromBookmark(url1, "tag2");
+        });
+    }
+
 
 
 
