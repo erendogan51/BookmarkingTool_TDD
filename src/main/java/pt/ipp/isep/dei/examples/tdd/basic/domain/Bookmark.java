@@ -24,6 +24,7 @@ public class Bookmark implements Comparable<Bookmark>{
     private LocalDateTime localDateTime;
 
 
+
     public void increaseRating() {
         setRating(getRating() + 1);
     }

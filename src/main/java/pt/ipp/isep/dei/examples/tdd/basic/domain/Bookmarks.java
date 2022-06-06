@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @Getter
 public class Bookmarks {
 
+    private final String owner;
     private final List<Bookmark> bookmarkedURLs;
 
     public void addURLtoBookmarks(String urlAsString, String tag) throws MalformedURLException {

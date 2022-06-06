@@ -18,7 +18,7 @@ class BookmarksTest {
     @Test
     public void checkIfURLCanBeBookmarked() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url = "https://google.com";
 
         //when
@@ -31,7 +31,7 @@ class BookmarksTest {
     @Test
     public void checkIfExceptionIsThrownwhenInvalidURLisEntered() {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url = "google.com";
 
         //then
@@ -43,7 +43,7 @@ class BookmarksTest {
 
     @Test
     public void checkIfBookmarkIsNotAddedWhenItExists() throws MalformedURLException {
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url = "https://google.com";
 
 
@@ -60,7 +60,7 @@ class BookmarksTest {
     @Test
     public void checkIfTagCanBeAddedToExistingBookmarkedURL() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url = "https://google.com";
         String tag = "google";
 
@@ -75,7 +75,7 @@ class BookmarksTest {
     @Test
     public void checkIfURLWithTagCanBeAdded() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url = "https://google.com";
         String tag = "google";
 
@@ -90,7 +90,7 @@ class BookmarksTest {
     @Test
     public void checkIfExistingBookmarksCanBeFoundByURL() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url = "https://google.com";
 
         //when
@@ -105,7 +105,7 @@ class BookmarksTest {
     @Test
     public void checkIfNonExistingBookmarksReturnsNull() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url = "https://google.com";
 
         //when
@@ -120,7 +120,7 @@ class BookmarksTest {
     @Test
     public void checkIfRatingIsIncreasedWhenDuplicateURLisBookmarked() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url = "https://google.com";
 
         //when
@@ -134,7 +134,7 @@ class BookmarksTest {
     @Test
     public void checkIfRatingIsNotIncreasedWhenDuplicateURLisNotPresent() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url = "https://google.com";
 
         //when
@@ -150,7 +150,7 @@ class BookmarksTest {
     @Test
     public void checkIfRatingIsIncreasedWhileAddingANewBookmarkThatExists() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url = "https://google.com";
 
         //when
@@ -165,7 +165,7 @@ class BookmarksTest {
     @Test
     public void checkIfAmountOfSecureURLsCanBeDetermined() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         int actual = 0;
         String url1 = "https://google.com";
         String url2 = "https://orf.at";
@@ -197,7 +197,7 @@ class BookmarksTest {
     @Test
     public void checkIfBookmarksCanBeFiltersByOneKeyWord() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url1 = "https://google.com";
         String url2 = "https://mail.google.com";
         Set<String> keywords = new HashSet<>();
@@ -218,7 +218,7 @@ class BookmarksTest {
     @Test
     public void checkIfBookmarksCanBeFiltersByMultipleKeyWord() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url1 = "https://google.com";
         String url2 = "https://mail.google.com";
         Set<String> keywords = new HashSet<>();
@@ -245,7 +245,7 @@ class BookmarksTest {
     @Test
     public void checkIfTagCanBeRemovedFromBookmark() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url1 = "https://google.com";
         String url2 = "https://mail.google.com";
 
@@ -261,7 +261,7 @@ class BookmarksTest {
     @Test
     public void checkIfNonMatchingTagIsNotRemoved() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url1 = "https://google.com";
         String url2 = "https://mail.google.com";
 
@@ -279,7 +279,7 @@ class BookmarksTest {
     @Test
     public void checkIfDesiredBookMarkExistBeforeRemovingTag() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url1 = "https://google.com";
         String url2 = "https://mail.google.com";
 
@@ -296,7 +296,7 @@ class BookmarksTest {
     @Test
     public void checkIfBookmarkCanBeRemoved() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url1 = "https://google.com";
         String url2 = "https://mail.google.com";
 
@@ -312,7 +312,7 @@ class BookmarksTest {
     @Test
     public void checkIfDesiredBookmarkExistsBeforeDeleting() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url1 = "https://google.com";
         String url2 = "https://mail.google.com";
 
@@ -329,7 +329,7 @@ class BookmarksTest {
     @Test
     public void checkIfLocalDateTimeIsAddedWhenAddingANewBookmark() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url1 = "https://google.com";
 
         //when
@@ -342,7 +342,7 @@ class BookmarksTest {
     @Test
     public void checkIfBookmarksCanBeSortedByRating() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url1 = "https://google.com";
         String url2 = "https://mail.google.com";
         String url3 = "https://notes.google.com";
@@ -370,7 +370,7 @@ class BookmarksTest {
     @Test
     public void checkIfBookmarksCanBeSortedByDateTime() throws MalformedURLException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url1 = "https://google.com";
         String url2 = "https://mail.google.com";
         String url3 = "https://notes.google.com";
@@ -421,12 +421,36 @@ class BookmarksTest {
     }
 
 
+    @Test
+    public void checkIfBookmarksAreAddedToTheCorrectUser() throws MalformedURLException {
+        //given
+        Bookmarks bookmarks1 = new Bookmarks("user1", new ArrayList<>());
+        Bookmarks bookmarks2 = new Bookmarks("user2", new ArrayList<>());
+        String url1 = "https://google.com";
+        String url2 = "https://mail.google.com";
+        String url3 = "https://notes.google.com";
+
+        //when
+        bookmarks1.addURLtoBookmarks(url1, "tag1");
+        bookmarks1.addURLtoBookmarks(url3, "tag1");
+        bookmarks1.addURLtoBookmarks(url2, "tag1");
+
+
+
+        //then
+        assertNotEquals(bookmarks1, bookmarks2);
+    }
+
+
+
+
+
     /*
     @Disabled
     @Test
     public void checkIfAddedBookmarkIsBeingAssociatedWithOtherBookmarksFromSameDomain() throws IOException, URISyntaxException {
         //given
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url1 = "https://google.com";
         String url2 = "https://mail.google.com";
 
@@ -443,7 +467,7 @@ class BookmarksTest {
     @Disabled
     @Test
     public void checkIfDomainCanBeExtractedFromURL() throws MalformedURLException {
-        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        Bookmarks bookmarks = new Bookmarks("user1", new ArrayList<>());
         String url1 = "https://www.google.com";
         String url2 = "https://www.mail.google.com";
 
