@@ -1,11 +1,8 @@
 package pt.ipp.isep.dei.examples.tdd.basic.domain;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -40,6 +37,21 @@ class BookmarksTest {
             //when
             bookmarks.addURLtoBookmarks(url, null);
         });
+    }
+
+    @Test
+    public void checkIfBookmarkIsNotAddedWhenItExists() throws MalformedURLException {
+        Bookmarks bookmarks = new Bookmarks(new ArrayList<>());
+        String url = "https://google.com";
+
+
+        //when
+        bookmarks.addURLtoBookmarks(url, null);
+        bookmarks.addURLtoBookmarks(url, null);
+
+        //then
+        assertEquals(1, bookmarks.getBookmarkedURLs().get(0).getRating());
+
     }
 
 

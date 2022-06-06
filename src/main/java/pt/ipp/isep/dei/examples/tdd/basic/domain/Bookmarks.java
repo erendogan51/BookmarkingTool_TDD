@@ -30,7 +30,7 @@ public class Bookmarks {
         keywords.add(urlAsString);
 
 
-        if (bookmarkList == null || bookmarkList.isEmpty()){
+        if (bookmarkList == null || bookmarkList.isEmpty()) {
             Bookmark url = Bookmark
                     .builder()
                     .url(new URL(urlAsString))
@@ -41,10 +41,14 @@ public class Bookmarks {
             this.bookmarkedURLs.add(url);
         }
 
-        increaseRatingForExistingBookmark(bookmarkList);
+        if (bookmarkList != null && !bookmarkList.isEmpty()){
+            increaseRatingForExistingBookmark(bookmarkList);
+        }
+
+
     }
 
-    public void addTagToExistingBookmark(String url, String tag){
+    public void addTagToExistingBookmark(String url, String tag) {
         findBookmarkByURL(url).get(0).setTag(tag);
     }
 
@@ -59,7 +63,7 @@ public class Bookmarks {
         return bookmarkList;
     }
 
-    public void increaseRatingForExistingBookmark(List<Bookmark> bookmarkList){
+    public void increaseRatingForExistingBookmark(List<Bookmark> bookmarkList) {
 
         if (bookmarkList == null || bookmarkList.isEmpty()) return;
 
@@ -69,7 +73,7 @@ public class Bookmarks {
     public int getNumberOfSecureURLsInBookmarksList() {
         int numberOfSecureURLs = 0;
 
-        for (Bookmark bookmark:this.bookmarkedURLs) {
+        for (Bookmark bookmark : this.bookmarkedURLs) {
             if (bookmark.getUrl().getProtocol().equals("https")) numberOfSecureURLs++;
         }
 
@@ -80,9 +84,9 @@ public class Bookmarks {
 
         Set<Bookmark> bookmarkHashSet = new HashSet<>();
 
-        for (Bookmark bookmark : this.bookmarkedURLs){
-            for (String keyword : keywords){
-                if (bookmark.getKeywords().contains(keyword)){
+        for (Bookmark bookmark : this.bookmarkedURLs) {
+            for (String keyword : keywords) {
+                if (bookmark.getKeywords().contains(keyword)) {
                     bookmarkHashSet.add(bookmark);
                     break;
                 }
