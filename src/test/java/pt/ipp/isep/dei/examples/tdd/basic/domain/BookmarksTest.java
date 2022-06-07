@@ -482,7 +482,7 @@ class BookmarksTest {
         bookmarks1.addURLtoBookmarks(url1, "tag1");
         bookmarks1.addURLtoBookmarks(url2, "tag1");
         bookmarks1.addURLtoBookmarks(url3, "tag1");
-        bookmarks1.backupToJSON("bookmark_backups.json");
+        bookmarks1.backupToJSON(path);
         bookmarks1.removeURLfromBookmarks(url1);
         bookmarks1.removeURLfromBookmarks(url2);
         bookmarks1.removeURLfromBookmarks(url3);
