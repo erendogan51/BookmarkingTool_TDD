@@ -471,9 +471,8 @@ class BookmarksTest {
     @Test
     public void checkIfBookmarksCanBeBackupedToAFile() throws IOException {
         //given
-        String path = "bookmark_backups.json";
+        String path = "BackupOfBookmarks.json";
         Bookmarks bookmarks1 = new Bookmarks("user1", new ArrayList<>());
-        BufferedReader br;
         String url1 = "https://google.com";
         String url2 = "https://mail.google.com";
         String url3 = "https://notes.google.com";
@@ -500,28 +499,24 @@ class BookmarksTest {
         assertFalse(bookmarks1.getBookmarkedURLs().isEmpty());
     }
 
-    @Disabled
+
     @Test
     public void checkIfBackupCanBeReadToBookmarks() throws IOException {
         //given
         String path = "bookmark_backups.json";
         Bookmarks bookmarks1 = new Bookmarks("user1", new ArrayList<>());
-        BufferedReader br = new BufferedReader(new FileReader(path));
-        String url1 = "https://google.com";
-        String line = null;
-        StringBuilder stringBuffer = new StringBuilder();
 
 
-        //when
-        bookmarks1.addURLtoBookmarks(url1, "tag1");
-        //bookmarks1.restoreBookmarksFromFile("bookmark_backups.json");
-
-        while ((line = br.readLine()) != null) {
-            stringBuffer.append(line);
-        }
+        bookmarks1.getBookmarkedURLs().forEach(System.out::println);
 
         //then
-        assertEquals(url1, stringBuffer.toString());
+        assertTrue(bookmarks1.getBookmarkedURLs().isEmpty());
+
+        //when
+        bookmarks1.restoreBookmarksFromFile(path);
+
+        //then
+        assertFalse(bookmarks1.getBookmarkedURLs().isEmpty());
     }
 
 
