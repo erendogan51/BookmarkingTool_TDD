@@ -519,6 +519,18 @@ class BookmarksTest {
         assertFalse(bookmarks1.getBookmarkedURLs().isEmpty());
     }
 
+    @Test
+    public void checkIfRestoreBookmarksFromFileThrowsExceptionWhenIllegalPathIsGiven(){
+        //given
+        Bookmarks bookmarks1 = new Bookmarks("user1", new ArrayList<>());
+
+
+        //then
+        assertThrows(IllegalArgumentException.class, () -> {
+            bookmarks1.restoreBookmarksFromFile(null);
+        });
+    }
+
 
 
     /*
